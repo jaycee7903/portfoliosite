@@ -627,7 +627,7 @@
       left: 0;
     }
     
-    @media (max-width: px) {
+    @media (max-width: 768px) {
       h1 {
         font-size: 2rem;
       }
@@ -1089,34 +1089,32 @@
     </form>
   </section>
 
+  <script>
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
 
-<script>
-  const form = document.getElementById("contact-form");
-  const status = document.getElementById("form-status");
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const data = new FormData(form);
+      
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
 
-  form.addEventListener("submit", async function(event) {
-    event.preventDefault();
-    const data = new FormData(form);
-    
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: {
-        'Accept': 'application/json'
+      if (response.ok) {
+        status.textContent = "✅ Thanks for your message!";
+        status.style.color = "green";
+        form.reset();
+      } else {
+        status.textContent = "❌ Oops! There was a problem. Please try again.";
+        status.style.color = "red";
       }
     });
-
-    if (response.ok) {
-      status.textContent = "✅ Thanks for your message!";
-      status.style.color = "green";
-      form.reset();
-    } else {
-      status.textContent = "❌ Oops! There was a problem. Please try again.";
-      status.style.color = "red";
-    }
-  });
-</script>
-
+  </script>
 
   <footer>
     <p>&copy; 2025 Jaanane Catherine Mahadevan. All rights reserved.</p>
